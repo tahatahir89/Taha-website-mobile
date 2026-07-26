@@ -3,12 +3,206 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taha-portfolio-mobile</title>
+    <title>M Taha — Web Developer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        /* =========================================================
+           HOME PAGE — NEON BLUE / WHITE THEME
+           Matches projects.html, about.html, services.html.
+           Scoped so it doesn't fight the shared style.css
+           ========================================================= */
+
+        :root{
+            --neon: #00c3ff;
+            --neon-deep: #0072ff;
+            --ink: #0b1220;
+            --muted: #5b6472;
+            --paper: #ffffff;
+            --paper-soft: #f4f8ff;
+            --line: #e3edfb;
+        }
+
+        body{
+            font-family: "Poppins", sans-serif;
+            background: var(--paper);
+            color: var(--ink);
+        }
+
+        /* ---- header override (identical to other pages) ---- */
+        header.body-font{
+            background: var(--paper);
+            border-bottom: 1px solid var(--line);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        header .bg-indigo-500{
+            background: linear-gradient(135deg, var(--neon), var(--neon-deep)) !important;
+        }
+        header nav a{
+            position: relative;
+            color: var(--ink);
+            font-weight: 500;
+            transition: color 0.25s ease;
+        }
+        header nav a::after{
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 0%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon), var(--neon-deep));
+            transition: width 0.3s ease;
+        }
+        header nav a:hover{
+            color: var(--neon-deep);
+        }
+        header nav a:hover::after{
+            width: 100%;
+        }
+        header button{
+            background: var(--ink) !important;
+            color: #fff;
+            border-radius: 999px !important;
+            transition: all 0.3s ease;
+        }
+        header button:hover{
+            background: linear-gradient(90deg, var(--neon), var(--neon-deep)) !important;
+            box-shadow: 0 0 20px rgba(0,195,255,0.5);
+        }
+        header button a{ color: #fff; }
+        header button a::after{ display:none; }
+
+        /* ---- hero ---- */
+        .hero{
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 85% 20%, rgba(0,195,255,0.12), transparent 45%),
+                radial-gradient(circle at 5% 80%, rgba(0,114,255,0.08), transparent 40%),
+                var(--paper);
+        }
+        .hero img{
+            box-shadow: 0 0 0 6px rgba(0,195,255,0.15), 0 0 60px rgba(0,114,255,0.20);
+            transition: transform 0.6s ease, box-shadow 0.6s ease;
+        }
+        .hero img:hover{
+            transform: scale(1.03);
+            box-shadow: 0 0 0 8px rgba(0,195,255,0.25), 0 0 80px rgba(0,114,255,0.30);
+        }
+        .hero h1{
+            font-family: "Anton", sans-serif;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+        .hero h1 span{
+            background: linear-gradient(90deg, var(--neon), var(--neon-deep));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .hero p{
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.8;
+        }
+        .hero .bg-indigo-500{
+            background: linear-gradient(90deg, var(--neon), var(--neon-deep)) !important;
+            transition: all 0.35s ease;
+            box-shadow: 0 6px 20px -4px rgba(0,114,255,0.5);
+        }
+        .hero .bg-indigo-500:hover{
+            box-shadow: 0 10px 30px -4px rgba(0,114,255,0.65);
+            transform: translateY(-2px);
+        }
+
+        /* ---- coding journey section ---- */
+        .journey-section{
+            background: var(--paper-soft);
+        }
+        .journey-section .bg-gray-200{
+            background: var(--line) !important;
+        }
+        .journey-section .bg-indigo-500{
+            background: linear-gradient(90deg, var(--neon), var(--neon-deep)) !important;
+            box-shadow: 0 0 12px rgba(0,195,255,0.5);
+        }
+
+        .journey-card{
+            transition: transform 0.45s cubic-bezier(.2,.8,.2,1);
+            opacity: 0;
+            transform: translateY(28px);
+        }
+        .journey-card.in-view{
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .journey-card:hover{
+            transform: translateY(-8px);
+        }
+        .journey-card .rounded-lg{
+            box-shadow: 0 4px 20px rgba(11,18,32,0.06);
+            transition: box-shadow 0.45s ease;
+        }
+        .journey-card:hover .rounded-lg{
+            box-shadow: 0 20px 40px -12px rgba(0,114,255,0.30);
+        }
+        .journey-card img{
+            transition: transform 0.6s ease;
+        }
+        .journey-card:hover img{
+            transform: scale(1.08);
+        }
+        .journey-card a.text-indigo-500{
+            color: var(--neon-deep) !important;
+            font-weight: 600;
+            position: relative;
+        }
+        .journey-card a.text-indigo-500 svg{
+            transition: transform 0.3s ease;
+        }
+        .journey-card a.text-indigo-500:hover svg{
+            transform: translateX(5px);
+        }
+
+        /* ---- footer ---- */
+        footer.body-font{
+            border-top: 1px solid var(--line);
+            background: var(--paper);
+        }
+        footer span a{
+            transition: color 0.3s ease, transform 0.3s ease;
+            display: inline-flex;
+        }
+        footer span a:hover{
+            color: var(--neon-deep) !important;
+            transform: translateY(-3px);
+        }
+        footer p a:hover{
+            color: var(--neon-deep) !important;
+        }
+
+        ::selection{
+            background: var(--neon);
+            color: #fff;
+        }
+
+        @media (prefers-reduced-motion: reduce){
+            .journey-card, .journey-card img, .hero img{
+                transition: none !important;
+            }
+            .journey-card{
+                opacity: 1;
+                transform: none;
+            }
+        }
+    </style>
 </head>
 <body>
     <header class="text-gray-600 body-font">
@@ -24,6 +218,7 @@
             <a href="contact.html" class="mr-5 hover:text-gray-900">Contact</a>
             <a href="services.html" class="mr-5 hover:text-gray-900">Services</a>
             <a href="about.html" class="mr-5 hover:text-gray-900">About</a>
+            <a href="projects.html" class="mr-5 hover:text-gray-900">Projects</a>
           </nav>
           <button class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"><a href="https://www.facebook.com/photo?fbid=122131451510479594&set=a.122131451570479594" target="_blank" rel="noopener noreferrer">Resume</a>
             <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
@@ -32,27 +227,27 @@
           </button>
         </div>
       </header>
-      
-      <section class="text-gray-600 body-font">
+
+      <section class="text-gray-600 body-font hero">
         <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
           <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
             <img class="object-cover object-center rounded-full  " alt="hero" src="tahainsta2.webp">
           </div>
           <div class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
-            <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">Muhammad Taha  
-              <br class="hidden lg:inline-block"> a passionate web developer
+            <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">Muhammad Taha
+              <br class="hidden lg:inline-block"> <span>a passionate web developer</span>
             </h1>
             <p class="mb-8 leading-relaxed">
                 I am a self-taught web developer with a passion for creating dynamic and responsive web applications. I enjoy learning new technologies and improving my skills to stay up-to-date with industry trends.</p>
             <div class="flex justify-center">
               <button class="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg"><a href="contact.html">Contact</a></button>
-             
+
             </div>
           </div>
         </div>
       </section>
       <hr>
-      <section class="text-gray-600 body-font">
+      <section class="text-gray-600 body-font journey-section">
         <div class="container px-5 py-24 mx-auto">
           <div class="flex flex-col">
             <div class="h-1 bg-gray-200 rounded overflow-hidden">
@@ -60,23 +255,23 @@
             </div>
             <div class="flex flex-wrap sm:flex-row flex-col py-6 mb-12">
               <h1 class="sm:w-2/5 text-gray-900 font-medium title-font text-2xl mb-2 sm:mb-0">Coding Journey</h1>
-              <p class="sm:w-3/5 leading-relaxed text-base sm:pl-10 pl-0">As a frontend web developer I am able to know about the frameworks , such as Tailwind css , bootstrap  Tail block css, Gsap for animations , locomotive Js etc </p>
+              <p class="sm:w-3/5 leading-relaxed text-base sm:pl-10 pl-0">As a frontend web developer, I know frameworks and tools such as Tailwind CSS, Bootstrap, Tail Block CSS, GSAP for animations, Locomotive JS, and more.</p>
             </div>
           </div>
           <div class="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4">
-            <div class="p-4 md:w-1/3 sm:mb-0 mb-6">
+            <div class="p-4 md:w-1/3 sm:mb-0 mb-6 journey-card">
               <div class="rounded-lg h-64 overflow-hidden">
                 <img alt="content" class="object-cover object-center h-full w-full" src="css.gif">
               </div>
               <h2 class="text-xl font-medium title-font text-gray-900 mt-5">CSS</h2>
-              <p class="text-base leading-relaxed mt-2">My css journey was began in 2022 . After completeing HTML, I was able to learned about different concepts  of css like ,Flex-box model , Css properties, Animations and contrasting frameworks.  </p>
-              <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" class="text-indigo-500 inline-flex items-center mt-3">Learn More
+              <p class="text-base leading-relaxed mt-2">My CSS journey began in 2022. After completing HTML, I learned different concepts of CSS like the Flexbox model, CSS properties, animations, and various frameworks.</p>
+              <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank" class="text-indigo-500 inline-flex items-center mt-3">Learn More
                 <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
                   <path d="M5 12h14M12 5l7 7-7 7"></path>
                 </svg>
               </a>
             </div>
-            <div class="p-4 md:w-1/3 sm:mb-0 mb-6">
+            <div class="p-4 md:w-1/3 sm:mb-0 mb-6 journey-card">
               <div class="rounded-lg h-64 overflow-hidden">
                 <img alt="content" class="object-cover object-center h-full w-full" src="js.png">
               </div>
@@ -88,13 +283,13 @@
                 </svg>
               </a>
             </div>
-            <div class="p-4 md:w-1/3 sm:mb-0 mb-6">
+            <div class="p-4 md:w-1/3 sm:mb-0 mb-6 journey-card">
               <div class="rounded-lg h-64 overflow-hidden">
                 <img alt="content" class="object-cover object-center h-full w-full" src="artificial-intelligence.gif">
               </div>
               <h2 class="text-xl font-medium title-font text-gray-900 mt-5">Acknowledge AI</h2>
-              <p class="text-base leading-relaxed mt-2">As we know AI is the future , so I chose to prefer using AI For different purposes like desiging, manufacturing, and the last is applying.  </p>
-              <a href="https://www.britannica.com/technology/artificial-intelligence" class="text-indigo-500 inline-flex items-center mt-3">Learn More
+              <p class="text-base leading-relaxed mt-2">AI is the future, so I've chosen to embrace using it for different purposes — designing, manufacturing, and applying it across my own projects.</p>
+              <a href="https://www.britannica.com/technology/artificial-intelligence" target="_blank" class="text-indigo-500 inline-flex items-center mt-3">Learn More
                 <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
                   <path d="M5 12h14M12 5l7 7-7 7"></path>
                 </svg>
@@ -140,5 +335,22 @@
           </span>
         </div>
       </footer>
+
+    <script>
+        // Same scroll-reveal treatment as the other pages
+        const cards = document.querySelectorAll(".journey-card");
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if(entry.isIntersecting){
+                    setTimeout(() => {
+                        entry.target.classList.add("in-view");
+                    }, i * 120);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        cards.forEach(card => observer.observe(card));
+    </script>
 </body>
 </html>

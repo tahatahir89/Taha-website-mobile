@@ -3,12 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About-me</title>
+    <title>About — M Taha</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="style.css">
         <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        /* =========================================================
+           ABOUT PAGE — NEON BLUE / WHITE THEME
+           Matches projects.html. Scoped so it doesn't fight style.css
+           ========================================================= */
+
+        :root{
+            --neon: #00c3ff;
+            --neon-deep: #0072ff;
+            --ink: #0b1220;
+            --muted: #5b6472;
+            --paper: #ffffff;
+            --paper-soft: #f4f8ff;
+            --line: #e3edfb;
+        }
+
+        body{
+            font-family: "Poppins", sans-serif;
+            background: var(--paper);
+            color: var(--ink);
+        }
+
+        /* ---- header override (identical to projects.html) ---- */
+        header.body-font{
+            background: var(--paper);
+            border-bottom: 1px solid var(--line);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        header .bg-indigo-500{
+            background: linear-gradient(135deg, var(--neon), var(--neon-deep)) !important;
+        }
+        header nav a{
+            position: relative;
+            color: var(--ink);
+            font-weight: 500;
+            transition: color 0.25s ease;
+        }
+        header nav a::after{
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 0%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon), var(--neon-deep));
+            transition: width 0.3s ease;
+        }
+        header nav a:hover{
+            color: var(--neon-deep);
+        }
+        header nav a:hover::after{
+            width: 100%;
+        }
+        header button{
+            background: var(--ink) !important;
+            color: #fff;
+            border-radius: 999px !important;
+            transition: all 0.3s ease;
+        }
+        header button:hover{
+            background: linear-gradient(90deg, var(--neon), var(--neon-deep)) !important;
+            box-shadow: 0 0 20px rgba(0,195,255,0.5);
+        }
+        header button a{ color: #fff; }
+        header button a::after{ display:none; }
+
+        /* ---- intro band ---- */
+        .about-intro{
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 10% 15%, rgba(0,195,255,0.10), transparent 45%),
+                radial-gradient(circle at 90% 5%, rgba(0,114,255,0.08), transparent 40%),
+                var(--paper);
+        }
+        .about-intro h1{
+            font-family: "Anton", sans-serif;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+        .about-intro h1 span{
+            background: linear-gradient(90deg, var(--neon), var(--neon-deep));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .about-intro .h-1{
+            background: linear-gradient(90deg, var(--neon), var(--neon-deep)) !important;
+            box-shadow: 0 0 14px rgba(0,195,255,0.55);
+        }
+        .about-intro p{
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        /* ---- skill cards ---- */
+        .about-intro .bg-gray-100{
+            background: var(--paper) !important;
+            border: 1px solid var(--line);
+            border-radius: 16px !important;
+            transition: transform 0.45s cubic-bezier(.2,.8,.2,1), box-shadow 0.45s ease, border-color 0.45s ease;
+
+            opacity: 0;
+            transform: translateY(28px);
+        }
+        .about-intro .bg-gray-100.in-view{
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .about-intro .bg-gray-100:hover{
+            transform: translateY(-10px);
+            border-color: rgba(0,195,255,0.5);
+            box-shadow: 0 20px 45px -15px rgba(0,114,255,0.30), 0 0 0 1px rgba(0,195,255,0.12);
+        }
+        .about-intro .bg-gray-100 img{
+            border-radius: 12px !important;
+            transition: transform 0.6s ease;
+        }
+        .about-intro .bg-gray-100:hover img{
+            transform: scale(1.06);
+        }
+        .about-intro .text-indigo-500{
+            color: var(--neon-deep) !important;
+        }
+
+        /* ---- footer ---- */
+        footer.body-font{
+            border-top: 1px solid var(--line);
+            background: var(--paper-soft);
+        }
+        footer .text-gray-500 a,
+        footer span a{
+            transition: color 0.3s ease, transform 0.3s ease;
+            display: inline-flex;
+        }
+        footer span a:hover{
+            color: var(--neon-deep) !important;
+            transform: translateY(-3px);
+        }
+        footer a[href^="mailto"],
+        footer a[href*="twitter"]{
+            transition: color 0.25s ease;
+        }
+        footer p a:hover{
+            color: var(--neon-deep) !important;
+        }
+
+        ::selection{
+            background: var(--neon);
+            color: #fff;
+        }
+
+        @media (prefers-reduced-motion: reduce){
+            .about-intro .bg-gray-100, .about-intro .bg-gray-100 img{
+                transition: none !important;
+            }
+            .about-intro .bg-gray-100{
+                opacity: 1;
+                transform: none;
+            }
+        }
+    </style>
 </head>
 <body>
     <header class="text-gray-600 body-font">
@@ -24,6 +189,7 @@
             <a href="contact.html" class="mr-5 hover:text-gray-900">Contact</a>
             <a  href="services.html"class="mr-5 hover:text-gray-900">Services</a>
             <a href="about.html" class="mr-5 hover:text-gray-900">About</a>
+            <a href="projects.html" class="mr-5 hover:text-gray-900">Projects</a>
           </nav>
           <button class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"><a href="https://www.facebook.com/photo?fbid=122131451510479594&set=a.122131451570479594" target="_blank" rel="noopener noreferrer">Resume</a>
             <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
@@ -32,29 +198,29 @@
           </button>
         </div>
       </header>
-    <section class="text-gray-600 body-font">
+    <section class="text-gray-600 body-font about-intro">
         <div class="container px-5 py-24 mx-auto">
           <div class="flex flex-wrap w-full mb-20">
             <div class="lg:w-1/2 w-full mb-6 lg:mb-0">
-              <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">About Myself</h1>
+              <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">About <span>Myself</span></h1>
               <div class="h-1 w-20 bg-indigo-500 rounded"></div>
             </div>
-            <p class="lg:w-1/2 w-full leading-relaxed text-gray-500">Hi I am a passionate web developer , and also a Graphics designer , Video editor . As a student I suggest you to keep learning about coding , AI and other simillar platforms . </p>
+            <p class="lg:w-1/2 w-full leading-relaxed text-gray-500">Hi, I'm a passionate web developer, graphic designer, and video editor. As a student, I believe in constantly learning — coding, AI, and whatever platform pushes the craft forward next.</p>
           </div>
           <div class="flex flex-wrap -m-4">
             <div class="xl:w-1/4 md:w-1/2 p-4">
               <div class="bg-gray-100 p-6 rounded-lg">
                 <img class="h-40 rounded w-full object-cover object-center mb-6" src="AI.jpg" alt="content">
-                <h3 class="tracking-widest text-indigo-500 text-xs font-medium title-font">SUBTITLE</h3>
+                <h3 class="tracking-widest text-indigo-500 text-xs font-medium title-font">SKILL</h3>
                 <h2 class="text-lg text-gray-900 font-medium title-font mb-4">Artificial Intelligence</h2>
-                <p class="leading-relaxed text-base">Learning about AI is the best thing that I shouid be know , because Ai is our future and also we see the runing AI's such as Chat.gpt . It is absolutely a graetest AI for the coders.</p>
+                <p class="leading-relaxed text-base">Learning AI is essential — it's the future, and tools like ChatGPT are already proof of how powerful it is for developers.</p>
               </div>
             </div>
             <div class="xl:w-1/4 md:w-1/2 p-4">
               <div class="bg-gray-100 p-6 rounded-lg">
                 <img class="h-40 rounded w-full object-cover object-center mb-6" src="graphics.jpg" alt="content">
-                <h3 class="tracking-widest text-indigo-500 text-xs font-medium title-font">SUBTITLE</h3>
-                <h2 class="text-lg text-gray-900 font-medium title-font mb-4">Graphics designing</h2>
+                <h3 class="tracking-widest text-indigo-500 text-xs font-medium title-font">SKILL</h3>
+                <h2 class="text-lg text-gray-900 font-medium title-font mb-4">Graphic Designing</h2>
                 <p class="leading-relaxed text-base">
                     Graphic designing is the art of creating visually appealing content to communicate messages effectively. It combines creativity, typography, imagery, and technology to produce designs for branding, advertising, and digital media.</p>
               </div>
@@ -62,17 +228,17 @@
             <div class="xl:w-1/4 md:w-1/2 p-4">
               <div class="bg-gray-100 p-6 rounded-lg">
                 <img class="h-40 rounded w-full object-cover object-center mb-6" src="video edit.jpg" alt="content">
-                <h3 class="tracking-widest text-indigo-500 text-xs font-medium title-font">SUBTITLE</h3>
-                <h2 class="text-lg text-gray-900 font-medium title-font mb-4">Video editing</h2>
-                <p class="leading-relaxed text-base">Video editing is the process of arranging and refining video footage to create a cohesive and engaging story. It involves trimming clips, adding transitions, effects, and sound to enhance the visual appeal.</p>
+                <h3 class="tracking-widest text-indigo-500 text-xs font-medium title-font">SKILL</h3>
+                <h2 class="text-lg text-gray-900 font-medium title-font mb-4">Video Editing</h2>
+                <p class="leading-relaxed text-base">Video editing is the process of arranging and refining footage into a cohesive, engaging story — trimming clips, adding transitions, effects, and sound to enhance the final result.</p>
               </div>
             </div>
             <div class="xl:w-1/4 md:w-1/2 p-4">
               <div class="bg-gray-100 p-6 rounded-lg">
                 <img class="h-40 rounded w-full object-cover object-center mb-6" src="coding image.jpg" alt="content">
-                <h3 class="tracking-widest text-indigo-500 text-xs font-medium title-font">SUBTITLE</h3>
+                <h3 class="tracking-widest text-indigo-500 text-xs font-medium title-font">SKILL</h3>
                 <h2 class="text-lg text-gray-900 font-medium title-font mb-4">Coding</h2>
-                <p class="leading-relaxed text-base">Coding, or programming, is the process of writing instructions in a language that computers can understand to perform specific tasks. It involves creating software, websites, apps, and systems that power the digital world. </p>
+                <p class="leading-relaxed text-base">Coding is the process of writing instructions computers can understand to perform specific tasks — building the software, websites, apps, and systems that power the digital world.</p>
               </div>
             </div>
           </div>
@@ -115,5 +281,22 @@
           </span>
         </div>
       </footer>
+
+    <script>
+        // Same scroll-reveal treatment as the Projects page
+        const cards = document.querySelectorAll(".about-intro .bg-gray-100");
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if(entry.isIntersecting){
+                    setTimeout(() => {
+                        entry.target.classList.add("in-view");
+                    }, i * 120);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        cards.forEach(card => observer.observe(card));
+    </script>
 </body>
 </html>

@@ -3,12 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Services</title>
+    <title>Services — M Taha</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        /* =========================================================
+           SERVICES PAGE — NEON BLUE / WHITE THEME
+           Matches projects.html and about.html. Scoped so it doesn't
+           fight the shared style.css
+           ========================================================= */
+
+        :root{
+            --neon: #00c3ff;
+            --neon-deep: #0072ff;
+            --ink: #0b1220;
+            --muted: #5b6472;
+            --paper: #ffffff;
+            --paper-soft: #f4f8ff;
+            --line: #e3edfb;
+        }
+
+        body{
+            font-family: "Poppins", sans-serif;
+            background: var(--paper);
+            color: var(--ink);
+        }
+
+        /* ---- header override (identical to other pages) ---- */
+        header.body-font{
+            background: var(--paper);
+            border-bottom: 1px solid var(--line);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        header .bg-indigo-500{
+            background: linear-gradient(135deg, var(--neon), var(--neon-deep)) !important;
+        }
+        header nav a{
+            position: relative;
+            color: var(--ink);
+            font-weight: 500;
+            transition: color 0.25s ease;
+        }
+        header nav a::after{
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 0%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon), var(--neon-deep));
+            transition: width 0.3s ease;
+        }
+        header nav a:hover{
+            color: var(--neon-deep);
+        }
+        header nav a:hover::after{
+            width: 100%;
+        }
+        header button{
+            background: var(--ink) !important;
+            color: #fff;
+            border-radius: 999px !important;
+            transition: all 0.3s ease;
+        }
+        header button:hover{
+            background: linear-gradient(90deg, var(--neon), var(--neon-deep)) !important;
+            box-shadow: 0 0 20px rgba(0,195,255,0.5);
+        }
+        header button a{ color: #fff; }
+        header button a::after{ display:none; }
+
+        /* ---- section band + eyebrow title (services.html had no heading, added for consistency) ---- */
+        .services-section{
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 12% 10%, rgba(0,195,255,0.10), transparent 45%),
+                radial-gradient(circle at 88% 15%, rgba(0,114,255,0.08), transparent 40%),
+                var(--paper);
+        }
+        .services-heading{
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .services-heading .eyebrow{
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--neon-deep);
+            margin-bottom: 14px;
+        }
+        .services-heading h1{
+            font-family: "Anton", sans-serif;
+            font-weight: 400;
+            font-size: clamp(34px, 5vw, 54px);
+            letter-spacing: 1px;
+            color: var(--ink);
+        }
+        .services-heading h1 span{
+            background: linear-gradient(90deg, var(--neon), var(--neon-deep));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* ---- service cards ---- */
+        .service-card{
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 40px 28px;
+            transition: transform 0.45s cubic-bezier(.2,.8,.2,1), box-shadow 0.45s ease, border-color 0.45s ease;
+
+            opacity: 0;
+            transform: translateY(28px);
+        }
+        .service-card.in-view{
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .service-card:hover{
+            transform: translateY(-10px);
+            border-color: rgba(0,195,255,0.5);
+            box-shadow: 0 20px 45px -15px rgba(0,114,255,0.30), 0 0 0 1px rgba(0,195,255,0.12);
+        }
+        .service-card img{
+            border: 3px solid var(--paper-soft) !important;
+            box-shadow: 0 0 0 3px rgba(0,195,255,0.18);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+        .service-card:hover img{
+            transform: scale(1.08);
+            box-shadow: 0 0 0 5px rgba(0,195,255,0.35);
+        }
+        .service-card .bg-indigo-500{
+            background: linear-gradient(90deg, var(--neon), var(--neon-deep)) !important;
+            box-shadow: 0 0 10px rgba(0,195,255,0.5);
+        }
+        .service-card h2{
+            letter-spacing: 2px;
+        }
+        .service-card p.leading-relaxed{
+            color: var(--muted);
+        }
+
+        ::selection{
+            background: var(--neon);
+            color: #fff;
+        }
+
+        @media (prefers-reduced-motion: reduce){
+            .service-card, .service-card img{
+                transition: none !important;
+            }
+            .service-card{
+                opacity: 1;
+                transform: none;
+            }
+        }
+    </style>
 </head>
 <body>
     <header class="text-gray-600 body-font">
@@ -24,6 +185,8 @@
             <a href="contact.html" class="mr-5 hover:text-gray-900">Contact</a>
             <a href="services.html" class="mr-5 hover:text-gray-900">Services</a>
             <a href="about.html" class="mr-5 hover:text-gray-900">About</a>
+            <a href="projects.html" class="mr-5 hover:text-gray-900">Projects</a>
+
           </nav>
           <button class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"><a href="https://www.facebook.com/photo?fbid=122131451510479594&set=a.122131451570479594"target="_blank" rel="noopener noreferrer">Resume</a>
             <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
@@ -32,29 +195,33 @@
           </button>
         </div>
       </header>
-    <section class="text-gray-600 body-font">
+    <section class="text-gray-600 body-font services-section">
         <div class="container px-5 py-24 mx-auto">
+          <div class="services-heading">
+            <span class="eyebrow">What I Offer</span>
+            <h1>My <span>Services</span></h1>
+          </div>
           <div class="flex flex-wrap -m-4">
             <div class="lg:w-1/3 lg:mb-0 mb-6 p-4">
-              <div class="h-full text-center">
+              <div class="h-full text-center service-card">
                 <img alt="testimonial" class="w-20 h-20 mb-8 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100" src="programmer.gif">
-                <p class="leading-relaxed">I will provide you a significant user friendly web application with a Capable and conserving domain for you websites.I also know about the Frameworks and other dominant platforms..Further I have a back-end and front-end knowledge.</p>
+                <p class="leading-relaxed">I build user-friendly web applications with a capable, well-organized structure. I know the frameworks and platforms behind modern sites, with knowledge across both back-end and front-end.</p>
                 <span class="inline-block h-1 w-10 rounded bg-indigo-500 mt-6 mb-4"></span>
-                <h2 class="text-gray-900 font-medium title-font tracking-wider text-sm">Web development</h2>
+                <h2 class="text-gray-900 font-medium title-font tracking-wider text-sm">Web Development</h2>
                 <p class="text-gray-500">Web Designer</p>
               </div>
             </div>
             <div class="lg:w-1/3 lg:mb-0 mb-6 p-4">
-              <div class="h-full text-center">
+              <div class="h-full text-center service-card">
                 <img alt="testimonial" class="w-20 h-20 mb-8 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100" src="logo-design.gif">
-                <p class="leading-relaxed">As a basic graphic designer, I have a passion for creating visually appealing and effective designs. I have a strong understanding of the principles of design, including color theory, typography, and layout.</p>
+                <p class="leading-relaxed">As a graphic designer, I have a passion for creating visually appealing and effective designs, with a strong grasp of color theory, typography, and layout.</p>
                 <span class="inline-block h-1 w-10 rounded bg-indigo-500 mt-6 mb-4"></span>
-                <h2 class="text-gray-900 font-medium title-font tracking-wider text-sm">Graphic desiging</h2>
+                <h2 class="text-gray-900 font-medium title-font tracking-wider text-sm">Graphic Designing</h2>
                 <p class="text-gray-500">Designer</p>
               </div>
             </div>
             <div class="lg:w-1/3 lg:mb-0 p-4">
-              <div class="h-full text-center">
+              <div class="h-full text-center service-card">
                 <img alt="testimonial" class="w-20 h-20 mb-8 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100" src="editing.gif">
                 <p class="leading-relaxed">I help turn your ideas into amazing videos. As a video editor, I use my skills to create stories that capture emotions and connect with audiences.</p>
                 <span class="inline-block h-1 w-10 rounded bg-indigo-500 mt-6 mb-4"></span>
@@ -64,6 +231,23 @@
             </div>
           </div>
         </div>
-      </section> 
+      </section>
+
+    <script>
+        // Same scroll-reveal treatment as the Projects and About pages
+        const cards = document.querySelectorAll(".service-card");
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if(entry.isIntersecting){
+                    setTimeout(() => {
+                        entry.target.classList.add("in-view");
+                    }, i * 120);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        cards.forEach(card => observer.observe(card));
+    </script>
 </body>
 </html>

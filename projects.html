@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects — M Taha</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        /* =========================================================
+           PROJECTS PAGE — NEON BLUE / WHITE THEME
+           Scoped so it doesn't fight with the shared style.css
+           ========================================================= */
+
+        :root{
+            --neon: #00c3ff;
+            --neon-deep: #0072ff;
+            --ink: #0b1220;
+            --muted: #5b6472;
+            --paper: #ffffff;
+            --paper-soft: #f4f8ff;
+            --line: #e3edfb;
+        }
+
+        body{
+            font-family: "Poppins", sans-serif;
+            background: var(--paper);
+            color: var(--ink);
+        }
+
+        /* ---- header override: keep structure, restyle to match theme ---- */
+        header.text-gray-700{
+            background: var(--paper);
+            border-bottom: 1px solid var(--line);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        header .bg-indigo-500{
+            background: linear-gradient(135deg, var(--neon), var(--neon-deep)) !important;
+        }
+        header nav a{
+            position: relative;
+            color: var(--ink);
+            font-weight: 500;
+            transition: color 0.25s ease;
+        }
+        header nav a::after{
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 0%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon), var(--neon-deep));
+            transition: width 0.3s ease;
+        }
+        header nav a:hover{
+            color: var(--neon-deep);
+        }
+        header nav a:hover::after{
+            width: 100%;
+        }
+        header button{
+            background: var(--ink) !important;
+            color: #fff;
+            border-radius: 999px !important;
+            transition: all 0.3s ease;
+        }
+        header button:hover{
+            background: linear-gradient(90deg, var(--neon), var(--neon-deep)) !important;
+            box-shadow: 0 0 20px rgba(0,195,255,0.5);
+        }
+        header button a{ color: #fff; }
+        header button a::after{ display:none; }
+
+        /* ---- page hero / title band ---- */
+        .projects-hero{
+            position: relative;
+            text-align: center;
+            padding: 70px 20px 50px 20px;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 15% 20%, rgba(0,195,255,0.12), transparent 45%),
+                radial-gradient(circle at 85% 10%, rgba(0,114,255,0.10), transparent 40%),
+                var(--paper);
+        }
+        .projects-hero .eyebrow{
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--neon-deep);
+            margin-bottom: 14px;
+        }
+        .projects-hero h1{
+            font-family: "Anton", sans-serif;
+            font-weight: 400;
+            font-size: clamp(42px, 7vw, 78px);
+            line-height: 1;
+            letter-spacing: 1px;
+            color: var(--ink);
+        }
+        .projects-hero h1 span{
+            background: linear-gradient(90deg, var(--neon), var(--neon-deep));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .projects-hero p{
+            max-width: 560px;
+            margin: 18px auto 0 auto;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.7;
+        }
+        .projects-hero .underline-glow{
+            width: 90px;
+            height: 4px;
+            margin: 26px auto 0 auto;
+            border-radius: 4px;
+            background: linear-gradient(90deg, var(--neon), var(--neon-deep));
+            box-shadow: 0 0 16px rgba(0,195,255,0.6);
+        }
+
+        /* ---- project grid ---- */
+        .projects-grid-wrap{
+            padding: 10px 20px 90px 20px;
+            background: var(--paper-soft);
+        }
+
+        .project-card{
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.45s cubic-bezier(.2,.8,.2,1), box-shadow 0.45s ease, border-color 0.45s ease;
+
+            /* scroll-reveal starting state */
+            opacity: 0;
+            transform: translateY(28px);
+        }
+        .project-card.in-view{
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .project-card:hover{
+            transform: translateY(-10px);
+            border-color: rgba(0,195,255,0.5);
+            box-shadow: 0 20px 45px -15px rgba(0,114,255,0.35), 0 0 0 1px rgba(0,195,255,0.15);
+        }
+
+        .project-card .thumb{
+            position: relative;
+            overflow: hidden;
+            height: 220px;
+        }
+        .project-card .thumb img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s ease, filter 0.6s ease;
+        }
+        .project-card:hover .thumb img{
+            transform: scale(1.08);
+        }
+        .project-card .thumb::after{
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0,195,255,0) 40%, rgba(0,17,40,0.55) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .project-card:hover .thumb::after{
+            opacity: 1;
+        }
+
+        .project-card .tag{
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #fff;
+            background: rgba(11,18,32,0.65);
+            backdrop-filter: blur(4px);
+            padding: 6px 12px;
+            border-radius: 999px;
+            z-index: 2;
+        }
+
+        .project-card .body{
+            padding: 26px 24px 28px 24px;
+        }
+        .project-card h2{
+            font-family: "Josefin Sans", sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 8px;
+        }
+        .project-card .desc{
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.6;
+            margin-bottom: 18px;
+        }
+        .project-card .stack{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        .project-card .stack span{
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--neon-deep);
+            background: rgba(0,195,255,0.08);
+            border: 1px solid rgba(0,195,255,0.25);
+            padding: 5px 10px;
+            border-radius: 999px;
+        }
+
+        .view-btn{
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--ink);
+            text-decoration: none;
+            padding: 10px 0;
+            position: relative;
+        }
+        .view-btn svg{
+            width: 16px;
+            height: 16px;
+            transition: transform 0.3s ease;
+        }
+        .view-btn::after{
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 4px;
+            height: 2px;
+            width: 100%;
+            background: linear-gradient(90deg, var(--neon), var(--neon-deep));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.35s ease;
+        }
+        .view-btn:hover{
+            color: var(--neon-deep);
+        }
+        .view-btn:hover::after{
+            transform: scaleX(1);
+        }
+        .view-btn:hover svg{
+            transform: translateX(5px);
+        }
+
+        /* ---- footer breathing room to match theme, without touching shared footer markup elsewhere ---- */
+        ::selection{
+            background: var(--neon);
+            color: #fff;
+        }
+
+        @media (prefers-reduced-motion: reduce){
+            .project-card, .project-card .thumb img, .view-btn svg{
+                transition: none !important;
+            }
+            .project-card{
+                opacity: 1;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="text-gray-700 body-font">
+        <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+          <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+            </svg>
+            <span class="ml-3 text-xl">M Taha</span>
+          </a>
+          <nav class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
+            <a href="index.html" class="mr-5 hover:text-gray-900">Home</a>
+            <a href="contact.html" class="mr-5 hover:text-gray-900">Contact</a>
+            <a href="services.html" class="mr-5 hover:text-gray-900">Services</a>
+            <a href="about.html" class="mr-5 hover:text-gray-900">About</a>
+            <a href="projects.html" class="mr-5 hover:text-gray-900">Projects</a>
+          </nav>
+          <button class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"><a href="https://www.facebook.com/photo?fbid=122131451510479594&set=a.122131451570479594" target="_blank" rel="noopener noreferrer">Resume</a>
+            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+              <path d="M5 12h14M12 5l7 7-7 7"></path>
+            </svg>
+          </button>
+        </div>
+    </header>
+
+    <section class="projects-hero">
+        <span class="eyebrow">Selected Work</span>
+        <h1>My <span>Projects</span></h1>
+        <p>A few things I've designed and built — from animated single-page sites to full front-end rebuilds. Click through to see the live version of each.</p>
+        <div class="underline-glow"></div>
+    </section>
+
+    <div class="projects-grid-wrap">
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- Project 1 -->
+                <div class="project-card">
+                    <div class="thumb">
+                        <span class="tag">Café Site</span>
+                        <img src="project-1.png" alt="Coffee with Taha project screenshot">
+                    </div>
+                    <div class="body">
+                        <h2>Coffee with Taha</h2>
+                        <p class="desc">A warm, animated landing page built for a coffee brand concept — focused on mood, imagery, and smooth scroll interactions.</p>
+                        <div class="stack">
+                            <span>HTML/CSS</span>
+                            <span>JavaScript</span>
+                            <span>Animations</span>
+                        </div>
+                        <a href="https://tahatahir89.github.io/Coffee-with-taha/" target="_blank" rel="noopener noreferrer" class="view-btn">
+                            View Project
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card">
+                    <div class="thumb">
+                        <span class="tag">Motion Study</span>
+                        <img src="project2.png" alt="Animated Web project screenshot">
+                    </div>
+                    <div class="body">
+                        <h2>Animated Web III</h2>
+                        <p class="desc">An exploration in scroll-based animation and interaction design — built to push what a plain HTML/CSS/JS site can feel like.</p>
+                        <div class="stack">
+                            <span>GSAP</span>
+                            <span>ScrollTrigger</span>
+                            <span>CSS</span>
+                        </div>
+                        <a href="https://tahatahir89.github.io/ANIMATED-WEB-3/" target="_blank" rel="noopener noreferrer" class="view-btn">
+                            View Project
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card">
+                    <div class="thumb">
+                        <span class="tag">Client Rebuild</span>
+                        <img src="fodie-lover-showcase.png" alt="Fodie.lover project screenshot">
+                    </div>
+                    <div class="body">
+                        <h2>Fodie.lover</h2>
+                        <p class="desc">A full front-end build and mobile-responsive rebuild for Sidcup Family Golf — a driving range, crazy golf, and café venue.</p>
+                        <div class="stack">
+                            <span>GSAP</span>
+                            <span>Responsive</span>
+                            <span>Vanilla JS</span>
+                        </div>
+                        <a href="https://tahatahir89.github.io/Fodie-lover/" target="_blank" rel="noopener noreferrer" class="view-btn">
+                            View Project
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple scroll-reveal: fade + slide cards in as they enter the viewport
+        const cards = document.querySelectorAll(".project-card");
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if(entry.isIntersecting){
+                    setTimeout(() => {
+                        entry.target.classList.add("in-view");
+                    }, i * 120);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        cards.forEach(card => observer.observe(card));
+    </script>
+</body>
+</html>
