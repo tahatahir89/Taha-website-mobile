@@ -169,6 +169,20 @@
                 transform: none;
             }
         }
+                @media (prefers-reduced-motion: reduce){
+            .journey-card, .journey-card img, .hero img{
+                transition: none !important;
+            }
+            .journey-card{
+                opacity: 1;
+                transform: none;
+            }
+            .resume-preview-card{
+                transition: none !important;
+                opacity: 1;
+                transform: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -188,7 +202,7 @@
             <a href="projects.html" class="mr-5 hover:text-gray-900">Projects</a>
 
           </nav>
-          <button class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"><a href="https://www.facebook.com/photo?fbid=122131451510479594&set=a.122131451570479594"target="_blank" rel="noopener noreferrer">Resume</a>
+          <button class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"><a href="index.html#resume">Resume</a>
             <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
               <path d="M5 12h14M12 5l7 7-7 7"></path>
             </svg>
@@ -248,6 +262,47 @@
         }, { threshold: 0.15 });
 
         cards.forEach(card => observer.observe(card));
+
+            // Resume section: scroll-reveal for the preview card
+        const resumePreview = document.querySelector(".resume-preview-card");
+        if (resumePreview) {
+            const resumeObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("in-view");
+                        resumeObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+            resumeObserver.observe(resumePreview);
+        }
+
+        // Resume view/download modal
+        const RESUME_PATH = "resume.pdf"; // keep in sync with where you place the PDF
+        const viewResumeBtn = document.getElementById("viewResumeBtn");
+        const resumeModal = document.getElementById("resumeModal");
+        const resumeModalFrame = document.getElementById("resumeModalFrame");
+        const closeResumeModal = document.getElementById("closeResumeModal");
+
+        function openResumeModal() {
+            resumeModalFrame.src = RESUME_PATH;
+            resumeModal.classList.add("open");
+            resumeModal.setAttribute("aria-hidden", "false");
+            document.body.style.overflow = "hidden";
+        }
+        function closeResumeModalFn() {
+            resumeModal.classList.remove("open");
+            resumeModal.setAttribute("aria-hidden", "true");
+            resumeModalFrame.src = "";
+            document.body.style.overflow = "";
+        }
+
+        if (viewResumeBtn) {
+            viewResumeBtn.addEventListener("click", openResumeModal);
+            closeResumeModal.addEventListener("click", closeResumeModalFn);
+            resumeModal.addEventListener("click", (e) => { if (e.target === resumeModal) closeResumeModalFn(); });
+            document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeResumeModalFn(); });
+        }
     </script>
 </body>
 </html>

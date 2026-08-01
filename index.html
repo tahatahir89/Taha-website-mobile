@@ -171,6 +171,121 @@
             transform: translateX(5px);
         }
 
+        /* ---- resume section ---- */
+        .resume-section{
+            background: var(--paper-soft);
+            border-top: 1px solid var(--line);
+        }
+
+        .resume-btn-outline{
+            color: var(--ink);
+            border: 2px solid var(--line) !important;
+            background: var(--paper);
+            transition: all 0.3s ease;
+        }
+        .resume-btn-outline:hover{
+            border-color: var(--neon) !important;
+            color: var(--neon-deep);
+            box-shadow: 0 0 20px rgba(0,195,255,0.25);
+            transform: translateY(-2px);
+        }
+
+        .resume-preview-card{
+            max-width: 900px;
+            margin: 0 auto;
+            height: 700px;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(11,18,32,0.06);
+            border: 1px solid var(--line);
+            opacity: 0;
+            transform: translateY(28px);
+            transition: transform 0.45s cubic-bezier(.2,.8,.2,1), box-shadow 0.45s ease, opacity 0.45s ease;
+        }
+        .resume-preview-card.in-view{
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .resume-preview-card:hover{
+            box-shadow: 0 20px 40px -12px rgba(0,114,255,0.30);
+        }
+        .resume-preview-card iframe{
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        @media (max-width: 700px){
+            .resume-preview-card{ display: none; }
+        }
+
+        .resume-modal{
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(11,18,32,0.75);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        .resume-modal.open{ display: flex; }
+
+        .resume-modal-content{
+            background: var(--paper);
+            width: 100%;
+            max-width: 900px;
+            height: 90vh;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 60px -12px rgba(0,114,255,0.35);
+        }
+
+        .resume-modal-header{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.85rem 1.25rem;
+            background: linear-gradient(90deg, var(--neon), var(--neon-deep));
+            color: #fff;
+            font-family: "Poppins", sans-serif;
+            font-weight: 600;
+        }
+
+        .resume-modal-close{
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.6rem;
+            line-height: 1;
+            cursor: pointer;
+            transition: transform 0.25s ease;
+        }
+        .resume-modal-close:hover{
+            transform: scale(1.15);
+        }
+
+        .resume-modal-content iframe{
+            flex: 1;
+            border: none;
+            width: 100%;
+        }
+
+        .resume-modal-fallback{
+            padding: 0.6rem 1rem;
+            font-size: 0.85rem;
+            text-align: center;
+            background: var(--paper-soft);
+            color: var(--muted);
+            border-top: 1px solid var(--line);
+        }
+        .resume-modal-fallback a{
+            color: var(--neon-deep);
+            font-weight: 600;
+        }
+
         /* ---- footer ---- */
         footer.body-font{
             border-top: 1px solid var(--line);
@@ -201,6 +316,11 @@
                 opacity: 1;
                 transform: none;
             }
+            .resume-preview-card{
+                transition: none !important;
+                opacity: 1;
+                transform: none;
+            }
         }
     </style>
 </head>
@@ -220,7 +340,7 @@
             <a href="about.html" class="mr-5 hover:text-gray-900">About</a>
             <a href="projects.html" class="mr-5 hover:text-gray-900">Projects</a>
           </nav>
-          <button class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"><a href="https://www.facebook.com/photo?fbid=122131451510479594&set=a.122131451570479594" target="_blank" rel="noopener noreferrer">Resume</a>
+          <button class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"><a href="index.html#resume">Resume</a>
             <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
               <path d="M5 12h14M12 5l7 7-7 7"></path>
             </svg>
@@ -298,6 +418,48 @@
           </div>
         </div>
       </section>
+
+      <section id="resume" class="text-gray-600 body-font resume-section">
+        <div class="container px-5 py-24 mx-auto">
+          <div class="flex flex-col">
+            <div class="h-1 bg-gray-200 rounded overflow-hidden">
+              <div class="w-24 h-full bg-indigo-500"></div>
+            </div>
+            <div class="flex flex-wrap sm:flex-row flex-col py-6 mb-12">
+              <h1 class="sm:w-2/5 text-gray-900 font-medium title-font text-2xl mb-2 sm:mb-0">Resume</h1>
+              <p class="sm:w-3/5 leading-relaxed text-base sm:pl-10 pl-0">Take a look right here on the page, or grab a copy to keep.</p>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap justify-center sm:justify-start gap-4 mb-12">
+            <button id="viewResumeBtn" class="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+              View Resume
+            </button>
+            <a id="downloadResumeBtn" href="resume.pdf" download="Muhammad_Taha_Resume.pdf"
+               class="inline-flex items-center border-0 py-2 px-6 focus:outline-none rounded text-lg resume-btn-outline">
+              Download Resume
+            </a>
+          </div>
+
+          <div class="resume-preview-card">
+            <iframe id="resumeInlineFrame" src="resume.pdf" title="Muhammad Taha Resume" loading="lazy"></iframe>
+          </div>
+        </div>
+      </section>
+
+      <div id="resumeModal" class="resume-modal" aria-hidden="true">
+        <div class="resume-modal-content">
+          <div class="resume-modal-header">
+            <span>Muhammad Taha — Resume</span>
+            <button id="closeResumeModal" class="resume-modal-close" aria-label="Close">&times;</button>
+          </div>
+          <iframe id="resumeModalFrame" src="" title="Resume preview"></iframe>
+          <div class="resume-modal-fallback">
+            Can't see the preview? <a href="resume.pdf" target="_blank" rel="noopener">Open it in a new tab</a> instead.
+          </div>
+        </div>
+      </div>
+
       <footer class="text-gray-600 body-font">
         <div class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
           <a class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
@@ -351,6 +513,47 @@
         }, { threshold: 0.15 });
 
         cards.forEach(card => observer.observe(card));
+
+        // Resume section: scroll-reveal for the preview card
+        const resumePreview = document.querySelector(".resume-preview-card");
+        if (resumePreview) {
+            const resumeObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("in-view");
+                        resumeObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+            resumeObserver.observe(resumePreview);
+        }
+
+        // Resume view/download modal
+        const RESUME_PATH = "resume.pdf"; // keep in sync with where you place the PDF
+        const viewResumeBtn = document.getElementById("viewResumeBtn");
+        const resumeModal = document.getElementById("resumeModal");
+        const resumeModalFrame = document.getElementById("resumeModalFrame");
+        const closeResumeModal = document.getElementById("closeResumeModal");
+
+        function openResumeModal() {
+            resumeModalFrame.src = RESUME_PATH;
+            resumeModal.classList.add("open");
+            resumeModal.setAttribute("aria-hidden", "false");
+            document.body.style.overflow = "hidden";
+        }
+        function closeResumeModalFn() {
+            resumeModal.classList.remove("open");
+            resumeModal.setAttribute("aria-hidden", "true");
+            resumeModalFrame.src = "";
+            document.body.style.overflow = "";
+        }
+
+        if (viewResumeBtn) {
+            viewResumeBtn.addEventListener("click", openResumeModal);
+            closeResumeModal.addEventListener("click", closeResumeModalFn);
+            resumeModal.addEventListener("click", (e) => { if (e.target === resumeModal) closeResumeModalFn(); });
+            document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeResumeModalFn(); });
+        }
     </script>
 </body>
 </html>
